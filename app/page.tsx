@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
+import List from "../components/List";
 
 export const metadata = {
   title: "Home",
@@ -13,7 +12,7 @@ async function getAllList() {
   return json;
 }
 
-interface IListProps {
+export interface IListProps {
   id: string;
   name: string;
   squareImage: string;
@@ -24,28 +23,30 @@ interface IListProps {
 export default async function HomePage() {
   const lists = await getAllList();
 
-  return lists.map((list: IListProps) => {
-    const truncatedWorth = Math.round(list.netWorth / 1000);
+  return (
+    <div
+      style={{
+        display: "grid",
+        gap: "50px 10px",
+        gridTemplateColumns: "repeat(auto-fill, minmax(145px, 1fr))",
+        width: "700px",
+        margin: "100px auto 0",
+      }}
+    >
+      {lists.map((list: IListProps) => {
+        const truncatedWorth = Math.round(list.netWorth / 1000);
 
-    return (
-      <Link href={`/person/${list.id}`} key={list.id}>
-        {list.squareImage && list.squareImage !== "https:undefined" ? (
-          <Image
-            alt={list.name}
-            src={list.squareImage}
-            width={145}
-            height={145}
+        return (
+          <List
+            key={list.id} // 고유 키 추가
+            id={list.id}
+            squareImage={list.squareImage}
+            name={list.name}
+            netWorth={list.netWorth}
+            industries={list.industries}
           />
-        ) : (
-          <div>No image available</div>
-        )}
-
-        <h3>{list.name}</h3>
-        <div>
-          <span>{truncatedWorth} Billions</span> /{" "}
-          <span>{list.industries}</span>
-        </div>
-      </Link>
-    );
-  });
+        );
+      })}
+    </div>
+  );
 }
