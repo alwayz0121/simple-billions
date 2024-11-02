@@ -35,19 +35,16 @@ export interface IPersonalProps {
 const getAPIUrl = (id: string) =>
   `https://billions-api.nomadcoders.workers.dev/person/${id}`;
 
-async function getPersonData(id: string) {
+async function getPersonData(id: string): Promise<IPersonalProps> {
   const response = await fetch(getAPIUrl(id));
-  const json = await response.json();
+  const json: IPersonalProps = await response.json();
   return json;
 }
 
-export default async function Detail({
-  params: { id },
-}: {
-  params: { id: string };
-}) {
+export default async function Detail({ params }) {
+  const { id } = await params;
+
   const data: IPersonalProps = await getPersonData(id);
-  console.log(data);
 
   return (
     <PersonalData

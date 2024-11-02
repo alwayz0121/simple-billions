@@ -20,8 +20,6 @@ export interface IListProps {
   industries: string[];
 }
 
-export const truncatedWorth = (worth: number) => Math.round(worth / 1000);
-
 export default async function HomePage() {
   const lists = await getAllList();
 

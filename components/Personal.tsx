@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./Personal.module.css";
 import { IPersonalProps } from "../app/person/[id]/page";
-import { truncatedWorth } from "../app/page";
+import { truncatedWorth } from "../utils/utils";
 
 export default async function PersonalData({
   id,

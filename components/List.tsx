@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { IListProps, truncatedWorth } from "../app/page";
+import { IListProps } from "../app/page";
 import styles from "./List.module.css";
+import { truncatedWorth } from "../utils/utils";
 
 export default async function List({
   id,
