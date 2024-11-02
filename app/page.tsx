@@ -20,6 +20,8 @@ export interface IListProps {
   industries: string[];
 }
 
+export const truncatedWorth = (worth: number) => Math.round(worth / 1000);
+
 export default async function HomePage() {
   const lists = await getAllList();
 
@@ -29,16 +31,12 @@ export default async function HomePage() {
         display: "grid",
         gap: "50px 10px",
         gridTemplateColumns: "repeat(auto-fill, minmax(145px, 1fr))",
-        width: "700px",
-        margin: "100px auto 0",
       }}
     >
       {lists.map((list: IListProps) => {
-        const truncatedWorth = Math.round(list.netWorth / 1000);
-
         return (
           <List
-            key={list.id} // 고유 키 추가
+            key={list.id}
             id={list.id}
             squareImage={list.squareImage}
             name={list.name}
